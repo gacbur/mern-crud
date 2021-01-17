@@ -1,23 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import Axios from 'axios'
+import "./App.css"
 
 function App() {
+
+  const [todoText, setTodoText] = useState("")
+
+  const addTodoList = () => {
+    Axios.post('http://localhost:3001/insert',
+      {
+        todoText: todoText
+      }
+    )
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <h1>Todo list with MERN</h1>
+
+      <label htmlFor="">Text:</label>
+      <input
+        type="text"
+        value={todoText}
+        onChange={(e) => setTodoText(e.target.value)}
+      />
+      <button
+        onClick={addTodoList}
+      >Add to list</button>
     </div>
   );
 }
