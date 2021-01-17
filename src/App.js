@@ -1,10 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Axios from 'axios'
 import "./App.css"
 
 function App() {
 
   const [todoText, setTodoText] = useState("")
+  const [allTodos, setAllTodos] = useState([])
+
+  useEffect(() => {
+    Axios.get('http://localhost:3001/read')
+      .then((response) => { setAllTodos(response.data) })
+  }, [])
 
   const addTodoList = () => {
     Axios.post('http://localhost:3001/insert',
@@ -26,7 +32,13 @@ function App() {
       />
       <button
         onClick={addTodoList}
-      >Add to list</button>
+      >Add to list</button><br /><br />
+      <h1>List:</h1>
+      {allTodos.map(item => {
+        return (
+          <div key={item._id}><h4>{item.text}</h4></div>
+        )
+      })}
     </div>
   );
 }

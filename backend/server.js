@@ -37,6 +37,16 @@ app.post('/insert', async (req, res) => {
     }
 })
 
+app.get('/read', async (req, res) => {
+    TodoModel.find({}, (err, result) => {
+        if (err) {
+            res.send(err)
+        }
+
+        res.send(result)
+    })
+})
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`)
 })
