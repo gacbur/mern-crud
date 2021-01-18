@@ -5,6 +5,7 @@ import "./App.css"
 function App() {
 
   const [todoText, setTodoText] = useState("")
+  const [newTodoText, setNewTodoText] = useState("")
   const [allTodos, setAllTodos] = useState([])
 
   useEffect(() => {
@@ -18,6 +19,18 @@ function App() {
         todoText: todoText
       }
     )
+  }
+
+  const updateFood = (id) => {
+    Axios.put("http://localhost:3001/update",
+      {
+        id: id,
+        newTodoText: newTodoText
+      })
+  }
+
+  const deleteText = (id) => {
+    Axios.delete(`http://localhost:3001/delete/${id}`)
   }
 
   return (
@@ -34,11 +47,34 @@ function App() {
         onClick={addTodoList}
       >Add to list</button><br /><br />
       <h1>List:</h1>
-      {allTodos.map(item => {
-        return (
-          <div key={item._id}><h4>{item.text}</h4></div>
-        )
-      })}
+      <ul>
+        {allTodos.map(item => {
+          return (
+            <li key={item._id}>
+              <h5>{item.text}</h5>
+              <input
+                type="text"
+                placeholder="update text..."
+                value={newTodoText}
+                onChange={(e) => setNewTodoText(e.target.value)}
+              />
+              <button
+                onClick={() => updateFood(item._id)}
+              >
+                Update
+                </button>
+              <br />
+              <button
+                className="cart-item__btn"
+                onClick={() => deleteText(item._id)}
+              >
+                Delete
+                </button>
+            </li>
+          )
+        })}
+      </ul>
+
     </div>
   );
 }

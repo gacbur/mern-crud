@@ -1,5 +1,21 @@
 
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin:0;
+}
+
+body{
+    width:100%;
+    display: flex;
+    justify-content: center;
+    margin-top:2em;
+}   
+
 .app{
+    width: 500px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.3);
+    padding: 2em 0em 0em 0em;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -16,4 +32,27 @@ input{
     height: 30px;
     font-size:20px;
     margin:5px;
+}
+
+ul{
+   width: 100%;  
+    margin-top: 1em;
+}
+
+li:first-child{
+    border-top: 1px solid lightgray;
+}
+
+li{
+    width: 100%;
+    padding:2em 1em;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    list-style: none;
+    border-bottom: 1px solid lightgray;
+}
+
+.cart-item__btn{
+    width: 100px;
 }

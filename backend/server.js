@@ -47,6 +47,31 @@ app.get('/read', async (req, res) => {
     })
 })
 
+app.put('/update', async (req, res) => {
+
+    const newTextName = req.body.newTextName
+    const id = req.body.id
+
+    try {
+        await TodoModel.findById(id, (updatedText) => {
+            updatedText.text = newTextName;
+            updatedText.save();
+            res.send("Update");
+        })
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+app.delete('/delete/:id', async (req, res) => {
+
+    const id = req.params.id
+
+    await TodoModel.findByIdAndRemove(id).exec()
+    res.send("Deleted")
+
+})
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`)
 })
